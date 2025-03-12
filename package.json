@@ -1,0 +1,14 @@
+{
+  "name": "sdi-2425-706-lab-nodejs",
+  "version": "1.0.0",
+  "description": "Tienda de música",
+  "main": "hello-world-server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HernandezIglesiasHector/sdi-2425-706-lab-nodejs.git"
+  },
+  "private": true
+}

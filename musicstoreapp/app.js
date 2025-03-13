@@ -9,15 +9,7 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
-app.get("/songs", function (req, res) {
-  console.log("depurar aqui")
-  res.send("Lista de canciones")
-});
 
-app.get("/singers", function (req, res) {
-  console.log("depurar aqui")
-  res.send("Lista de cantantes")
-});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -29,6 +21,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+require("./routes/songs.js")(app);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 

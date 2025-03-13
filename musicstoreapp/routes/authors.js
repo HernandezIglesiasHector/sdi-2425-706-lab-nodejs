@@ -22,7 +22,28 @@ module.exports = function (app) {
     });
 
     app.get('/authors/add', function (req, res) {
-        res.render("authors/add.twig");
+        let roles = [{
+            "name": "Cantante",
+            "role": "cantante"
+        },{
+            "name": "Trompetista",
+            "role": "trompetista"
+        },{
+            "name": "Guitarrista",
+            "role": "guitarrista"
+        },{
+            "name": "Bajista",
+            "role": "bajista"
+        },{
+            "name": "Pianista",
+            "role": "pianista"
+        }];
+
+        let response = {
+            roles: roles
+        };
+
+        res.render("authors/add.twig", response);
     });
 
     app.post('/authors/add', function (req, res) {

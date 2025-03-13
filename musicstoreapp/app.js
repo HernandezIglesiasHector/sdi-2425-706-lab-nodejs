@@ -25,6 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 require("./routes/songs.js")(app);
+require("./routes/authors.js")(app);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 

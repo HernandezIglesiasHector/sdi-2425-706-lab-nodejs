@@ -12,7 +12,7 @@ module.exports = function (app) {
         }, {
             "name": "Bad Bunny",
             "group": "nslqvapm",
-            "role": "cantante"
+            "role": "violinista"
         }];
         let response = {
             seller: "Autores",
@@ -23,19 +23,19 @@ module.exports = function (app) {
 
     app.get('/authors/add', function (req, res) {
         let roles = [{
-            "name": "Cantante",
+            "roleName": "Cantante",
             "role": "cantante"
         },{
-            "name": "Trompetista",
+            "roleName": "Trompetista",
             "role": "trompetista"
         },{
-            "name": "Guitarrista",
+            "roleName": "Guitarrista",
             "role": "guitarrista"
         },{
-            "name": "Bajista",
+            "roleName": "Bajista",
             "role": "bajista"
         },{
-            "name": "Pianista",
+            "roleName": "Pianista",
             "role": "pianista"
         }];
 
@@ -54,7 +54,7 @@ module.exports = function (app) {
             response += "name no enviado en la petición" + "<br>";
         }
         if (req.body.role !== null && typeof(req.body.role) != "undefined" && req.body.role.trim() !== "") {
-            response = "Rol: " + req.body.role + "<br>";
+            response += "Rol: " + req.body.role + "<br>";
         } else {
             response += "rol no enviado en la petición" + "<br>";
         }
@@ -65,6 +65,27 @@ module.exports = function (app) {
         }
 
         res.send(response);
+    });
+
+    app.get("/authors/filter/:role", function(req,res){
+        let authors = [{
+            "name": "Quevedo",
+            "group": "Buenas noches",
+            "role": "cantante"
+        }, {
+            "name": "Bruce Sprinting",
+            "group": "Bruce",
+            "role": "Guitarrista"
+        }, {
+            "name": "Bad Bunny",
+            "group": "nslqvapm",
+            "role": "violinista"
+        }];
+        let response = {
+            seller: "Autores",
+            authors: authors.filter(author => author.role.toLowerCase().trim() === req.params.role.toLowerCase().trim())
+        };
+        res.render("authors/authors.twig", response);
     });
 
     app.get("/authors/*", function (req, res) {

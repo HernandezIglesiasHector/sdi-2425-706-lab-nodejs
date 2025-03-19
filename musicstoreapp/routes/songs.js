@@ -1,5 +1,4 @@
-
-module.exports = function (app) {
+module.exports = function (app, songsRepository) {
     app.get("/songs", function (req, res) {
         let songs = [{
             "title": "Blank space",
@@ -37,11 +36,18 @@ module.exports = function (app) {
         res.send(response);
     });
     app.post('/songs/add', function (req, res) {
-        let response = "Canción agregada: " + req.body.title + "<br>"
-            + " género: " + req.body.kind + "<br>"
-            + " precio: " + req.body.price;
-
-        res.send(response);
+        let song = {
+            title: req.body.title,
+            kind: req.body.kind,
+            price: req.body.price
+        }
+        songsRepository.insertSong(song, function (result) {
+            if (result.songId !== null && result.songId !== undefined) {
+                res.send("Agregada la canción ID: " + result.songId);
+            } else {
+                res.send("Error al insertar canción " + result.error);
+            }
+        });
     });
 
     app.get('/promo*', function (req, res) {

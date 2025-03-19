@@ -23,8 +23,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+const { MongoClient } = require("mongodb");
+const connectionStrings = 'mongodb+srv://admin:ADMSIS123...@musicapp.4zvne.mongodb.net/?retryWrites=true&w=majority&appName=musicapp';
+const dbClient = new MongoClient(connectionStrings);
+let songsRepository = require("./repositories/songsRepository.js");
+songsRepository.init(app, dbClient);
 
-require("./routes/songs.js")(app);
+require("./routes/songs.js")(app, songsRepository);
 require("./routes/authors.js")(app);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

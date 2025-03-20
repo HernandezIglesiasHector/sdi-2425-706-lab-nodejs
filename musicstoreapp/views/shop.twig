@@ -70,7 +70,14 @@
                     <div>{{ song.title }} </div>
                     <div class="small">{{ song.author }} </div>
                     <div class="text-right"> {{ song.price }}€</div>
+                    <div class="form-group">
+                    </div>
                 </a>
+                <form class="form-horizontal" method="post" action="/songs/favorites/add/{{song._id}}">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary">Añadir a favoritos</button>
+                    </div>
+                </form>
             </div>
         </div>
         {% endfor %}

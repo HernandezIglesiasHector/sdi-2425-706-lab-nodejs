@@ -19,6 +19,7 @@ module.exports = function (app, songsRepository) {
 
         res.render("shop.twig", response);
     });
+
     app.get('/add', function(req, res) {
         let response = parseInt(req.query.num1) + parseInt(req.query.num2);
         res.send(String(response));

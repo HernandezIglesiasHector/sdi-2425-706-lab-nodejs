@@ -46,6 +46,12 @@ const { MongoClient } = require("mongodb");
 const connectionStrings = 'mongodb+srv://admin:ADMSIS123...@musicapp.4zvne.mongodb.net/?retryWrites=true&w=majority&appName=musicapp';
 const dbClient = new MongoClient(connectionStrings);
 
+const favoritesRepository = require("./repositories/favoriteSongsRepository.js");
+favoritesRepository.init(app,dbClient);
+let songsRepository = require("./repositories/songsRepository.js");
+songsRepository.init(app, dbClient);
+require("./routes/favorites.js")(app, favoritesRepository, songsRepository);
+
 
 const usersRepository = require("./repositories/usersRepository.js");
 usersRepository.init(app, dbClient);
@@ -58,10 +64,6 @@ app.use("/songs/add",userSessionRouter);
 app.use("/publications",userSessionRouter);
 app.use("/audios/",userAudiosRouter);
 app.use("/shop/",userSessionRouter)
-
-let songsRepository = require("./repositories/songsRepository.js");
-songsRepository.init(app, dbClient);
-
 
 
 require("./routes/songs.js")(app, songsRepository);

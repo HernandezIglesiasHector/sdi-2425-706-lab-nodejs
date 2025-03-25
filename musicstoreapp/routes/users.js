@@ -17,7 +17,7 @@ module.exports = function (app, usersRepository) {
     }
     //res.send('usuario registrado');
     usersRepository.insertUser(user).then(userId => {
-      res.send('Usuario registrado ' + userId);
+      res.redirect("/users/login");
     }).catch(error => {
       res.send("Error al insertar el usuario");
     });
@@ -36,14 +36,14 @@ module.exports = function (app, usersRepository) {
         res.send("Usuario no identificado");
       } else {
         req.session.user = user.email;
-        res.send("Usuario identificado correctamente: " + user.email);
+        res.redirect("/publications");
       }
     }).catch(error => {
       req.session.user = null;
       res.send("Se ha producido un error al buscar el usuario: " + error);
     });
   });
-  app.get('/users/logout', function (req, res) {
+  app.get('/users/logout', function (req, res)  {
     req.session.user = null;
     res.send("El usuario se ha desconectado correctamente");
   })

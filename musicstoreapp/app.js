@@ -76,7 +76,7 @@ require("./routes/songs.js")(app, songsRepository);
 require("./routes/authors.js")(app);
 app.use('/', indexRouter);
 
-
+require("./routes/api/songsAPIv1.0.js")(app, songsRepository);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

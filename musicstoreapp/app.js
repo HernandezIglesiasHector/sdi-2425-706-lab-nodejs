@@ -9,6 +9,8 @@ var indexRouter = require('./routes/index');
 
 
 let app = express();
+let jwt = require('jsonwebtoken');
+app.set('jwt', jwt);
 let expressSession = require('express-session');
 app.use(expressSession({
   secret: 'abcdefg',
@@ -71,12 +73,15 @@ const userAuthorRouter = require('./routes/userAuthorRouter');
 app.use("/songs/edit",userAuthorRouter);
 app.use("/songs/delete",userAuthorRouter);
 
+const userTokenRouter = require('./routes/userTokenRouter');
+app.use("/api/v1.0/songs/", userTokenRouter);
+
 
 require("./routes/songs.js")(app, songsRepository);
 require("./routes/authors.js")(app);
 app.use('/', indexRouter);
 
-require("./routes/api/songsAPIv1.0.js")(app, songsRepository);
+require("./routes/api/songsAPIv1.0.js")(app, songsRepository, usersRepository);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

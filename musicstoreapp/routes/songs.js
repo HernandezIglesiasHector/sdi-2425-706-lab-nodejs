@@ -72,7 +72,6 @@ module.exports = function (app, songsRepository) {
             user: req.session.user,
             song_id: songId
         }
-        userCanBuy(user, song._id, function (canBuy) {
             songsRepository.buySong(shop).then(result => {
                 if (result.insertedId === null || typeof (result.insertedId) === undefined) {
                     res.send("Se ha producido un error al comprar la canción")
@@ -82,10 +81,7 @@ module.exports = function (app, songsRepository) {
             }).catch(error => {
                 res.send("Se ha producido un error al comprar la canción " + error)
             })
-        })
-    }).catch(error => {
-        res.send("Se ha producido un error al buscar la canción " + error);
-    });
+        });
 
 
     function userCanBuy(user, songId, ret) {
